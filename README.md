@@ -19,7 +19,8 @@ each user's entries will be anonymous, but this will not happen in the near futu
 After you log in, the program operates out of a central menu loop.
 In this menu, you can select different operations with shortcuts.
 
-###Shortcuts Glossary:
+### Shortcuts Glossary:
+
 **ls**
 : [list] name, gender, and CTP of all entries
 
@@ -44,7 +45,7 @@ In this menu, you can select different operations with shortcuts.
 **q**
 : [quits] and saves new changes to JSON
 
-###CHANGES TO DATA WILL NOT BE SAVED TO THE JSON UNLESS YOU QUIT FROM THE MENU FIRST !!
+### CHANGES TO DATA WILL NOT BE SAVED TO THE JSON UNLESS YOU QUIT FROM THE MENU FIRST !!
 
-You can view all the data in your data.json file. This file can be sent and used in another
+You can **view all the data in your data.json file**. This file can be sent and used in another
 user's CTP program. It contains all of your personalized information. 
