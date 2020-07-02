@@ -1,4 +1,4 @@
-# CTP
+# CTP JSON Database
 
 https://github.com/Khuf2/CTP : For more-readable instructions.
 
