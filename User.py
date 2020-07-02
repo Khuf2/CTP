@@ -223,7 +223,7 @@ class User:
                 self.query[:] = [x for x in self.query if filterFunc[cond[0]](x) > int(cond[2])]
             elif (cond[1] == '<'):
                 # condition = lambda e: filterFunc[x[0]](e) < int(x[2])
-                self.query[:] = [x for x in self.query if filterFunc[cond[0]](x) > int(cond[2])]
+                self.query[:] = [x for x in self.query if filterFunc[cond[0]](x) < int(cond[2])]
             elif (cond[1] == '>='):
                 # condition = lambda e: filterFunc[x[0]](e) >= int(x[2])
                 self.query[:] = [x for x in self.query if filterFunc[cond[0]](x) >= int(cond[2])]

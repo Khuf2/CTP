@@ -48,7 +48,6 @@ class Entry:
         return self.ctp_score
     
     def getScore(self, key):
-        print(self.scores[key])
         return self.scores[key]
 
     def getAllScores(self):
@@ -65,7 +64,6 @@ class Entry:
         self.name = newName
 
     def getAge(self):
-        print(self.age)
         return self.age
 
     def setAge(self, val):
