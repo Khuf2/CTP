@@ -1,14 +1,14 @@
 class Entry: 
     # default values given to the person
-    MALE_WEIGHTS = {"phys": 15, "att": 20, "soc": 20, "comm": 15, "intel": 20, "cons": 10}
-    FEMALE_WEIGHTS = {"phys": 20, "att": 25, "soc": 15, "comm": 10, "intel": 20, "cons": 10}
+    MALE_WEIGHTS = {"phys": 11, "looks": 19, "soc": 23, "comm": 19, "intel": 11, "cons": 17}
+    FEMALE_WEIGHTS = {"phys": 17, "looks": 21, "soc": 17, "comm": 15, "intel": 16, "cons": 14}
 
     # parameterized constructor 
     def __init__(self, name, gender, age, scores, author): 
         # name
         self.name = name.title()
         # gender, weighting
-        self.gender = gender.capitalize()
+        self.setGender(gender)
         self.setWeights()
         # scores
         self.scores = scores
@@ -24,11 +24,9 @@ class Entry:
         cum_score = 0
         for key in self.scores.keys():
             cum_score += (self.scores[key] / 100) * self.weights[key]
-        self.CTP_score = round(cum_score, 2)
+        self.ctp_score = (round(cum_score, 2))
 
     def setWeights(self): 
-        # Not meant to be any kind of statement about gender and equality or whatever.
-        # This is just as a demonstration of a fork based off of innate data, in this case, gender.
         if (self.getGender() == ("Male")):
             self.weights = self.MALE_WEIGHTS
         else:
@@ -47,16 +45,18 @@ class Entry:
             self.gender = "Other"
 
     def getCTP(self):
-        return self.CTP_score
+        return self.ctp_score
     
-    def getScore(self, index):
-        return self.scores[index]
+    def getScore(self, key):
+        print(self.scores[key])
+        return self.scores[key]
 
     def getAllScores(self):
         return self.scores
     
     def setScore(self, key, val):
         self.scores[key] = val
+        self.CTP()
 
     def getName(self):
         return self.name
@@ -65,6 +65,7 @@ class Entry:
         self.name = newName
 
     def getAge(self):
+        print(self.age)
         return self.age
 
     def setAge(self, val):
@@ -75,11 +76,10 @@ class Entry:
     
     def __str__(self):
         # Returns a list of the categories and the values, the user's name, and the final CTP score. 
-        report = ""
-        report += "\n\n"
+        report = "\n"
         report += self.name + " (" +  self.getGender() + ")\n"
-        report += "Score: " + str(self.CTP_score) + "\n\n"
+        report += "Age: " + str(self.getAge()) + "\n"
+        report += "Score: " + str("{:.2f}".format(self.ctp_score)) + "\n\n"
         for key in self.scores.keys():
             report += key.capitalize() + ": " + str(self.scores[key]) + "\n"
-        report += "\n\n"
         return report
