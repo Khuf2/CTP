@@ -31,6 +31,7 @@ class User:
         self.asc = None
         self.fcriteria = None
         self.fasc = None
+        self.flast = None
         self.greet()
 
     def getName(self):
@@ -179,6 +180,7 @@ class User:
     def find(self, bools):
         # do some test later for added args
         # This will be getting passed a lenN list of len3 lists, where N = filter conditions/
+        self.flast = self.query
         self.query = copy.deepcopy(self.data)
 
         def ageFunc(e):
@@ -215,9 +217,6 @@ class User:
 
         for cond in bools:
 
-            print (cond)
-            print ( "Pre: " + str(len(self.query)) )
-
             if (cond[1] == '>'):
                 # condition = lambda e: filterFunc[x[0]](e) > int(x[2])
                 self.query[:] = [x for x in self.query if filterFunc[cond[0]](x) > int(cond[2])]
@@ -235,9 +234,6 @@ class User:
                 self.query[:] = [x for x in self.query if filterFunc[cond[0]](x) == int(cond[2])]
             else:
                 print ("Error reading expression operator")
-
-            self.ls(self.query)
-            print ( "Post: " + str(len(self.query)) )
 
         self.ls(self.query)
 
@@ -346,7 +342,7 @@ class User:
 
                 elif(args[0].lower() == 'sort'):
                     # send to other sort with list = query
-                    print("Sort Entries:")
+                    
                     # if list is not sent as self.query, its self.data
                     if(len(args) > 2 and len(args[1]) > 0):
                         # sort with a criteria and asc
@@ -357,6 +353,7 @@ class User:
                             asc = False
                     else:
                         # sort the old way
+                        print("Sort Entries:")
                         criteria = input("Criteria: ").lower()
                         asc = input("Ascending or Descending order (a / d): ").lower()
                         if asc == 'a':
@@ -369,6 +366,12 @@ class User:
                     self.fcriteria = criteria
                     self.fasc = asc
                     print("Sorted.")
+
+                elif(args[0].lower() == '-'):
+                    self.query, self.flast = self.flast, self.query
+                    print("Query set to last filter set.")
+                    self.ls(self.query)
+                    
 
                 elif(args[0].lower() == 'rpt'):
                     # send to other rpt with list = query
@@ -505,7 +508,6 @@ class User:
                 
 
             elif(args[0].lower() == 'sort'):
-                print("Sort Entries:")
                 # if list is not sent as self.query, its self.data
                 if(len(args) > 2 and len(args[1]) > 0):
                     # sort with a criteria and asc
@@ -515,6 +517,7 @@ class User:
                     else:
                         asc = False
                 else:
+                    print("Sort Entries:")
                     # sort the old way
                     criteria = input("Criteria: ").lower()
                     asc = input("Ascending or Descending order (a / d): ").lower()

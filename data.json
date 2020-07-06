@@ -1,29 +1,15 @@
 [
     {
-        "Name": "Munchus",
+        "Name": "Baldy",
         "Gender": "Male",
-        "Age": 26,
+        "Age": 55,
         "Scores": {
-            "phys": 100,
-            "looks": 100,
+            "phys": 31,
+            "looks": 9,
             "soc": 100,
             "comm": 100,
-            "intel": 100,
+            "intel": 90,
             "cons": 100
-        },
-        "Author": "Munchus"
-    },
-    {
-        "Name": "Thugger",
-        "Gender": "Male",
-        "Age": 25,
-        "Scores": {
-            "phys": 90,
-            "looks": 90,
-            "soc": 77,
-            "comm": 65,
-            "intel": 80,
-            "cons": 90
         },
         "Author": "Zach"
     },
@@ -42,18 +28,18 @@
         "Author": "Julia"
     },
     {
-        "Name": "Baldy",
-        "Gender": "Male",
-        "Age": 55,
+        "Name": "Kk",
+        "Gender": "Female",
+        "Age": 28,
         "Scores": {
-            "phys": 31,
-            "looks": 9,
-            "soc": 100,
-            "comm": 100,
-            "intel": 90,
-            "cons": 100
+            "phys": 50,
+            "looks": 60,
+            "soc": 80,
+            "comm": 60,
+            "intel": 80,
+            "cons": 60
         },
-        "Author": "Zach"
+        "Author": "Theo"
     },
     {
         "Name": "Mitch",
@@ -70,18 +56,18 @@
         "Author": "Dana"
     },
     {
-        "Name": "Kk",
-        "Gender": "Female",
-        "Age": 28,
+        "Name": "Munchus",
+        "Gender": "Male",
+        "Age": 26,
         "Scores": {
-            "phys": 50,
-            "looks": 60,
-            "soc": 80,
-            "comm": 60,
-            "intel": 80,
-            "cons": 60
+            "phys": 100,
+            "looks": 100,
+            "soc": 100,
+            "comm": 100,
+            "intel": 100,
+            "cons": 100
         },
-        "Author": "Theo"
+        "Author": "Munchus"
     },
     {
         "Name": "Sample",
@@ -96,5 +82,19 @@
             "cons": 50
         },
         "Author": "Julia"
+    },
+    {
+        "Name": "Thugger",
+        "Gender": "Male",
+        "Age": 25,
+        "Scores": {
+            "phys": 90,
+            "looks": 90,
+            "soc": 77,
+            "comm": 65,
+            "intel": 80,
+            "cons": 90
+        },
+        "Author": "Zach"
     }
 ]
