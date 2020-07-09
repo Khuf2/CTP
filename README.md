@@ -29,19 +29,29 @@ In this menu, you can select different operations with shortcuts.
 
 **add**
 : [add] a new entry
-: Usage: add, add ***name***
+: Usage: 
+: - add
+: - add ***name***
 
 **edit**
 : [edit] an existing entry
-: Usage: edit, edit ***name***, edit ***name*** ***category***, edit ***name*** ***category*** ***new value or relative change***
+: Usage: 
+: - edit
+: - edit ***name***
+: - edit ***name*** ***category***
+: - edit ***name*** ***category*** ***new value or relative change***
 
 **del**
 : [delete] an existing entry
-: Usage: del, del ***name***
+: Usage: 
+: - del
+: - del ***name***
 
 **f**
 : [find] entries based on a search query 
-: Usage:  f ***filter***, f ***filter1***, ***filter2***, ***...***
+: Usage:  
+: - f ***filter***
+: - f ***filter1***, ***filter2***, ***...***
 : Filter condition example: age>60, intel<=60
 : Make sure there's no blank spaces inside your conditions.
 
@@ -51,11 +61,16 @@ In this menu, you can select different operations with shortcuts.
 
 **sort**
 : [sort] data list by specified criteria.
-: Usage: sort, sort ***criterion*** ***order***
+: Usage: 
+: - sort
+: - sort ***criterion*** ***order***
 
 **rpt**
 : [report] entries from a comma-seperated list of names. Using the asterisk prints all entries.
-: Usage: rpt, rpt *, rpt ***name1***, ***name2***, ***name3***, ***...***
+: Usage: 
+: - rpt
+: - rpt *
+: - rpt ***name1***, ***name2***, ***name3***, ***...***
 
 **q**
 : [quits] and saves new changes to JSON
