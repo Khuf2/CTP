@@ -26,6 +26,10 @@ def writePrep(data):
         })
     return dictData
 
+def updateJSON(data):
+    with open('data.json', 'w', encoding='utf-8') as f:
+        json.dump(writePrep(data), f, ensure_ascii=False, indent=4)
+
 def main():
 
     name = ""
@@ -41,11 +45,21 @@ def main():
     # ignore the pylint hate
     user = User(name, data)
 
-    user.menu()
 
-    # save file after any edits made
-    with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(writePrep(data), f, ensure_ascii=False, indent=4)
+
+    # Morph this menu call to a while loop call to menu, and quit when you have to.
+    print("Type 'help' to see the list of commands.")
+
+    while(1):
+        if(user.menu() is "q"):
+            updateJSON(user.getData())
+            break
+        elif(user.menu() is 'go'):
+            # do nothing
+            pass
+        else:
+            # update saved JSON data
+            updateJSON(user.getData())
 
 
 main()

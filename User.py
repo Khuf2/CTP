@@ -5,7 +5,6 @@ import copy
 # CTP.py is destined to be the main file, which sets and cleans the table, saving to data.txt
 
 class User:
-    # the key for the self.data is being changed from name to int 'index' (because it is a list of entries)
     MALE_WEIGHTS = {"phys": 11, "looks": 19, "soc": 23, "comm": 19, "intel": 11, "cons": 17}
     FEMALE_WEIGHTS = {"phys": 17, "looks": 21, "soc": 17, "comm": 15, "intel": 16, "cons": 14}
     help = {
@@ -24,9 +23,6 @@ class User:
         self.name = name.title()
         self.data = data
         self.query = copy.deepcopy(self.data)
-        # The stack will eventually be a small ADT that we make and implement based on a list
-        # it tracks filter conditionals for find query
-        self.stack = []
         self.criteria = None
         self.asc = None
         self.fcriteria = None
@@ -72,14 +68,8 @@ class User:
         # Low priority
         return None
 
-    '''
-    def setWeights(self):
-        # Do as supplemental afterwards
-        print()
-    '''
-
     def ls(self, list):
-        # this lists out all the people, maybe in a 3 column format
+        # this lists out all the people
         if(list is self.data):
             output = "\nMy Entries:"
             criteria = self.criteria
@@ -274,240 +264,72 @@ class User:
         for x in self.help.keys():
             output += "\t" + x + " : " + self.help[x] + "\n"
         output += "Type 'help <shortcut>' to get an explanation and syntax for the function's usage.\n"
+        output += "Any information you do not provide in the command line will be asked for by prompts.\n"
         return output
 
     def menu(self):
-        quit = False
-        print("Type 'help' to see the list of commands.")
-
-        while(not quit):
-            line = ""
-            while(len(line) == 0):
-                line = input("\nCommand Line >> ")
-            args = line.split(" ")
-            # Remove any mishap blank args
-            while(args.count("") > 0):
-                args.remove("")
-            print()
-            # Make sure we always check length of argument list before doing these nested conditionals
+        line = ""
+        while(len(line) == 0):
+            line = input("\nCommand Line >> ")
+        args = line.split(" ")
+        # Remove any mishap blank args
+        while(args.count("") > 0):
+            args.remove("")
+        print()
+        # Make sure we always check length of argument list before doing these nested conditionals
 
 
-            if(args[0].lower() == 'help'):
-                if(len(args) == 1):
-                    print(self.printHelp())           
-                elif(len(args) == 2):
-                    if(args[1] == 'ls'):
-                        output = args[1] + ": [list] name, gender, and CTP of all entries.\n"
-                        output += "Usage: >> ls\n"
-                        print(output)
-                    elif(args[1] == 'add'):
-                        output = args[1] + ": [add] a new entry.\n"
-                        output += "Usage: >> add, add <name>\n"
-                        print(output)
-                    elif(args[1] == 'edit'):
-                        output = args[1] + ": [edit] an existing entry.\n"
-                        output += "Usage: >> edit, edit <name>, edit <name> <category>, edit <name> <category> <new value or relative change>\n"
-                        print(output)
-                    elif(args[1] == 'del'):
-                        output = args[1] + ": [delete] an existing entry.\n"
-                        output += "Usage: >> del, del <name>\n"
-                        print(output)
-                    elif(args[1] == 'lb'):
-                        output = args[1] + ": prints [weights] used for CTP calculation.\n"
-                        output += "Usage: >> lb"
-                        print(output)
-                    elif(args[1] == 'sort'):
-                        output = args[1] + ": [sort] data list by specified criteria.\n"
-                        output += "Usage: >> sort, sort <criterion> <order>"
-                        print(output)
-                    elif(args[1] == 'rpt'):
-                        output = args[1] + ": [report] entries from a comma-separated list of names.\n"
-                        output += "Usage: >> rpt, rpt *, rpt <name1>, <name2>, <name3>, <...>"
-                        print(output)
-                    elif(args[1] == 'q'):
-                        output += args[1] + ": [quits] and saves new changes to JSON.\n"
-                        output += "Usage: >> q"
-                        print(output)
-                else:
-                    print("Too many arguments for 'help'.")
+        if(args[0].lower() == 'help'):
+            output = ""
+            if(len(args) == 1):
+                print(self.printHelp())           
+            elif(len(args) == 2):
+                if(args[1] == 'ls' or args[1] == 'list'):
+                    output = args[1] + ": [list] name, gender, and CTP of all entries.\n"
+                    output += "Usage:\n\t >> ls\n"
+                elif(args[1] == 'add'):
+                    output = args[1] + ": [add] a new entry.\n"
+                    output += "Usage:\n\t >> add\n\t>> add <name>\n"
+                elif(args[1] == 'edit'):
+                    output = args[1] + ": [edit] an existing entry.\n"
+                    output += "Usage:\n\t >> edit\n\t >> edit <name>\n\t >> edit <name> <category>\n\t >> edit <name> <category> <new value or relative change>\n"
+                elif(args[1] == 'del' or args[1] == 'delete'):
+                    output = args[1] + ": [delete] an existing entry.\n"
+                    output += "Usage:\n\t >> del\n\t >> del <name>\n"
+                elif(args[1] == 'f' or args[1] == 'find'):
+                    output = args[1] + ": [find] an existing entry.\nf sort, f rpt, and f ls are available for your filtered data set (query).\n"
+                    output += "Usage: ( filter ex. (no spaces): age>60, intel<=60 )\n\t >> f <filter>\n\t >> f <filter1>, <filter2>, <...>\n"
+                elif(args[1] == 'lb' or args[1] == 'weights' or args[1] == 'weight'):
+                    output = args[1] + ": prints [weights] used for CTP calculation.\n"
+                    output += "Usage:\n\t >> lb"
+                elif(args[1] == 'sort'):
+                    output = args[1] + ": [sort] data list by specified criteria.\n"
+                    output += "Usage:\n\t >> sort\n\t >> sort <criterion> <order>"
+                elif(args[1] == 'rpt' or args[1] == 'report'):
+                    output = args[1] + ": [report] entries from a comma-separated list of names.\n"
+                    output += "Usage:\n\t >> rpt\n\t >> rpt *\n\t >> rpt <name1>, <name2>, <name3>, <...>"
+                elif(args[1] == 'q' or args[1] == 'quit'):
+                    output += args[1] + ": [quits] and saves new changes to JSON.\n"
+                    output += "Usage:\n\t >> q"   
+                print(output)
+            else:
+                print("Too many arguments for 'help'.")
 
 
-            elif(args[0].lower() == 'f'):
-                # If you send to sort, rpt, or ls, args.pop(0) would get rid of the f list element and give you an adjusted args list.
-                args.pop(0)
+        elif(args[0].lower() == 'f'):
+            # If you send to sort, rpt, or ls, args.pop(0) would get rid of the f list element and give you an adjusted args list.
+            args.pop(0)
 
-                if(args[0].lower() == 'ls'):
-                    # send to other ls with list = query
-                    self.ls(self.query)
+            if len(args) is 0:
+                return "go"
 
-                elif(args[0].lower() == 'sort'):
-                    # send to other sort with list = query
-                    
-                    # if list is not sent as self.query, its self.data
-                    if(len(args) > 2 and len(args[1]) > 0):
-                        # sort with a criteria and asc
-                        criteria = args[1]
-                        if(args[2].lower() == 'a'):
-                            asc = True
-                        else:
-                            asc = False
-                    else:
-                        # sort the old way
-                        print("Sort Entries:")
-                        criteria = input("Criteria: ").lower()
-                        asc = input("Ascending or Descending order (a / d): ").lower()
-                        if asc == 'a':
-                            asc = True
-                        elif asc == 'd':
-                            asc = False
-                        else:
-                            asc = None
-                    self.sort(self.query, criteria, asc)
-                    self.fcriteria = criteria
-                    self.fasc = asc
-                    print("Sorted.")
-
-                elif(args[0].lower() == '-'):
-                    self.query, self.flast = self.flast, self.query
-                    print("Query set to last filter set.")
-                    self.ls(self.query)
-                    
-
-                elif(args[0].lower() == 'rpt'):
-                    # send to other rpt with list = query
-                    if(len(args) > 1):
-                        if(len(args) == 2 and args[1] == '*'):
-                            # report all from the given list
-                            # grab all names from self.data
-                            all_names = []
-                            for x in self.query:
-                                all_names.append(x.getName())
-                            print ( (self.report(all_names)) )
-                        else:
-                            # we have been given a comma-separated list in this case.
-                            # Do as before, but in one step
-                            for x in range(1, len(args)):
-                                args[x] = args[x].replace(",", "")
-                            print ( (self.report( args[1:] )) )
-                    else:
-                        # rpt the old way
-                        listStr = input("Enter a comma-separated list of entry names to report: ") 
-                        rpt_list = self.strToList(listStr)
-                        print ( (self.report(rpt_list)) )
-
-                elif(args[0].lower() == 'push'):
-                    print("@f push: ")
-                elif(args[0].lower() == 'pop'):
-                    print("@f pop: ")
-                elif(args[0].lower() == 'popall'):
-                    print("@f popall: ")
-                else:
-                    # we have been given a comma-separated list in this case.
-                    # Do as before, but in one step
-                    for x in range(1, len(args)):
-                        args[x] = args[x].replace(",", "")
-                    self.find(self.queryRead(args))
-                    # print("Could not read your find command. Learn about our find syntax.")
-
-            elif(args[0].lower() == 'ls'):
-                self.ls(self.data)
-
-
-            elif(args[0].lower() == 'add' and len(args) <= 2):
-                # if args[1] exists, thats our name
-                print("New Entry:")
-                if(len(args) > 1 and len(args[1]) > 0):
-                    name = args[1]
-                else:
-                    name = input("Name: ")
-
-                gender = input("Male or Female? (m or f): ").upper()
-                if gender.__eq__("M"):
-                    gender = "Male"
-                else:
-                    gender = "Female"
-                age = int(input("Age: "))
-                scores = {
-                    "phys": int(input("Physique: ")), 
-                    "looks": int(input("Looks: ")), 
-                    "soc": int(input("Social: ")),
-                    "comm": int(input("Communication: ")),  
-                    "intel": int(input("Intelligence: ")), 
-                    "cons": int(input("Consistency: "))
-                }
-                self.addEntry([name, gender, age, scores])
-
-
-            elif(args[0].lower() == 'edit'):
-                if(len(args) > 1):
-                    name = args[1]
-                    if(len(args) > 2):
-                        # This is a whole different thing in here, will break from rest before end of code block
-                        category = args[2]
-                        if(len(args) > 3):
-                            # edit instantly with name, category, and change value
-                            change = args[3]
-                            self.editCategory(name, category, change)
-                            continue
-                        # edit with a name and category
-                        self.editCategory(name, category)
-                        continue
-                    print("Edit Entry:")
-                else:
-                    name = input("Name: ")
-
-                entry = self.getEntry(name)
-                if(entry) is not None:
-                    # if a field is left blank, then keep the old value.
-                    # display the old value alongside the variable prompt
-                    updateGender = input("Male or Female? (m or f) [curr = " + entry.getGender() + "]: ").upper()
-                    if updateGender == ("M"):
-                        gender = "Male"
-                    elif updateGender == ("F"):
-                        gender = "Female"
-                    else:
-                        gender = entry.getGender()
-                    age = input("Age: ")
-                    if age.isspace() or len(age) == 0:
-                        age = entry.getAge()
-                    else:
-                        age = int(age)
-                    scores = {
-                        "phys": input("Physique [curr = " + str(entry.getScore("phys")) + "]: "), 
-                        "looks": input("Looks [curr = " + str(entry.getScore("looks")) + "]: "), 
-                        "soc": input("Social [curr = " + str(entry.getScore("soc")) + "]: "), 
-                        "comm": input("Communication [curr = " + str(entry.getScore("comm")) + "]: "), 
-                        "intel": input("Intelligence [curr = " + str(entry.getScore("intel")) + "]: "), 
-                        "cons": input("Consistency [curr = " + str(entry.getScore("cons")) + "]: ")
-                    }
-                    for x in scores.keys():
-                        # revert unchanged values
-                        if (scores[x].isspace() or len(scores[x]) == 0):
-                            scores[x] = entry.getScore(x)
-                        else:
-                            scores[x] = int(scores[x])
-
-                    self.editEntry([name, gender, age, scores])
-
-                else:
-                    print("Entry does not exist. Check your spelling or add this entry.")
-                
-
-            elif(args[0].lower() == 'del'):
-                print("Delete Entry:")
-                if(len(args) > 1):
-                    name = args[1]
-                else:
-                    name = input("Name: ") 
-
-                deleted = self.delEntry(name)
-                if(deleted != None):
-                    print(name.title() + " deleted from your entries.")
-                else:
-                    print("Error: " + name.title() + " delete failure.")
-                
+            if(args[0].lower() == 'ls'):
+                # send to other ls with list = query
+                self.ls(self.query)
 
             elif(args[0].lower() == 'sort'):
+                # send to other sort with list = query
+                
                 # if list is not sent as self.query, its self.data
                 if(len(args) > 2 and len(args[1]) > 0):
                     # sort with a criteria and asc
@@ -517,8 +339,8 @@ class User:
                     else:
                         asc = False
                 else:
-                    print("Sort Entries:")
                     # sort the old way
+                    print("Sort Entries:")
                     criteria = input("Criteria: ").lower()
                     asc = input("Ascending or Descending order (a / d): ").lower()
                     if asc == 'a':
@@ -527,19 +349,25 @@ class User:
                         asc = False
                     else:
                         asc = None
-                self.sort(self.data, criteria, asc)
-                self.criteria = criteria
-                self.asc = asc
+                self.sort(self.query, criteria, asc)
+                self.fcriteria = criteria
+                self.fasc = asc
                 print("Sorted.")
 
+            elif(args[0].lower() == '-'):
+                self.query, self.flast = self.flast, self.query
+                print("Query set to last filter set.")
+                self.ls(self.query)
+                
+
             elif(args[0].lower() == 'rpt'):
-                # if list is not sent as self.query, its self.data
+                # send to other rpt with list = query
                 if(len(args) > 1):
                     if(len(args) == 2 and args[1] == '*'):
                         # report all from the given list
                         # grab all names from self.data
                         all_names = []
-                        for x in self.data:
+                        for x in self.query:
                             all_names.append(x.getName())
                         print ( (self.report(all_names)) )
                     else:
@@ -553,17 +381,171 @@ class User:
                     listStr = input("Enter a comma-separated list of entry names to report: ") 
                     rpt_list = self.strToList(listStr)
                     print ( (self.report(rpt_list)) )
-                
-            elif(args[0].lower() == 'lb'):
-                print(self.printDefaultWeights())
-
-            elif(args[0].lower() == 'q'):
-                # quit and exit to CTP, where you finish and quit
-                    print("System quitting.")
-                    quit = True
 
             else:
-                print("Could not read your command line.")
+                # we have been given a comma-separated list in this case.
+                for x in range(1, len(args)):
+                    args[x] = args[x].replace(",", "")
+                self.find(self.queryRead(args))
+
+        elif(args[0].lower() == 'ls'):
+            self.ls(self.data)
+
+
+        elif(args[0].lower() == 'add' and len(args) <= 2):
+            # if args[1] exists, thats our name
+            print("New Entry:")
+            if(len(args) > 1 and len(args[1]) > 0):
+                name = args[1]
+            else:
+                name = input("Name: ")
+
+            gender = input("Male or Female? (m or f): ").upper()
+            if gender.__eq__("M"):
+                gender = "Male"
+            else:
+                gender = "Female"
+            age = int(input("Age: "))
+            scores = {
+                "phys": int(input("Physique: ")), 
+                "looks": int(input("Looks: ")), 
+                "soc": int(input("Social: ")),
+                "comm": int(input("Communication: ")),  
+                "intel": int(input("Intelligence: ")), 
+                "cons": int(input("Consistency: "))
+            }
+            self.addEntry([name, gender, age, scores])
+            return "update"
+
+
+        elif(args[0].lower() == 'edit'):
+            if(len(args) > 1):
+                name = args[1]
+                if(len(args) > 2):
+                    # This is a whole different thing in here, will break from rest before end of code block
+                    category = args[2]
+                    if(len(args) > 3):
+                        # edit instantly with name, category, and change value
+                        change = args[3]
+                        self.editCategory(name, category, change)
+                        return "update"
+                    # edit with a name and category
+                    self.editCategory(name, category)
+                    return "update"
+                print("Edit Entry:")
+            else:
+                name = input("Name: ")
+
+            entry = self.getEntry(name)
+            if(entry) is not None:
+                # if a field is left blank, then keep the old value.
+                # display the old value alongside the variable prompt
+                updateGender = input("Male or Female? (m or f) [curr = " + entry.getGender() + "]: ").upper()
+                if updateGender == ("M"):
+                    gender = "Male"
+                elif updateGender == ("F"):
+                    gender = "Female"
+                else:
+                    gender = entry.getGender()
+                age = input("Age: ")
+                if age.isspace() or len(age) == 0:
+                    age = entry.getAge()
+                else:
+                    age = int(age)
+                scores = {
+                    "phys": input("Physique [curr = " + str(entry.getScore("phys")) + "]: "), 
+                    "looks": input("Looks [curr = " + str(entry.getScore("looks")) + "]: "), 
+                    "soc": input("Social [curr = " + str(entry.getScore("soc")) + "]: "), 
+                    "comm": input("Communication [curr = " + str(entry.getScore("comm")) + "]: "), 
+                    "intel": input("Intelligence [curr = " + str(entry.getScore("intel")) + "]: "), 
+                    "cons": input("Consistency [curr = " + str(entry.getScore("cons")) + "]: ")
+                }
+                for x in scores.keys():
+                    # revert unchanged values
+                    if (scores[x].isspace() or len(scores[x]) == 0):
+                        scores[x] = entry.getScore(x)
+                    else:
+                        scores[x] = int(scores[x])
+
+                self.editEntry([name, gender, age, scores])
+                return "update"
+
+            else:
+                print("Entry does not exist. Check your spelling or add this entry.")
+            
+
+        elif(args[0].lower() == 'del'):
+            print("Delete Entry:")
+            if(len(args) > 1):
+                name = args[1]
+            else:
+                name = input("Name: ") 
+
+            deleted = self.delEntry(name)
+            if(deleted != None):
+                print(name.title() + " deleted from your entries.")
+                return "delete"
+            else:
+                print("Error: " + name.title() + " delete failure.")
+            
+
+        elif(args[0].lower() == 'sort'):
+            # if list is not sent as self.query, its self.data
+            if(len(args) > 2 and len(args[1]) > 0):
+                # sort with a criteria and asc
+                criteria = args[1]
+                if(args[2].lower() == 'a'):
+                    asc = True
+                else:
+                    asc = False
+            else:
+                print("Sort Entries:")
+                # sort the old way
+                criteria = input("Criteria: ").lower()
+                asc = input("Ascending or Descending order (a / d): ").lower()
+                if asc == 'a':
+                    asc = True
+                elif asc == 'd':
+                    asc = False
+                else:
+                    asc = None
+            self.sort(self.data, criteria, asc)
+            self.criteria = criteria
+            self.asc = asc
+            print("Sorted.")
+
+        elif(args[0].lower() == 'rpt'):
+            # if list is not sent as self.query, its self.data
+            if(len(args) > 1):
+                if(len(args) == 2 and args[1] == '*'):
+                    # report all from the given list
+                    # grab all names from self.data
+                    all_names = []
+                    for x in self.data:
+                        all_names.append(x.getName())
+                    print ( (self.report(all_names)) )
+                else:
+                    # we have been given a comma-separated list in this case.
+                    # Do as before, but in one step
+                    for x in range(1, len(args)):
+                        args[x] = args[x].replace(",", "")
+                    print ( (self.report( args[1:] )) )
+            else:
+                # rpt the old way
+                listStr = input("Enter a comma-separated list of entry names to report: ") 
+                rpt_list = self.strToList(listStr)
+                print ( (self.report(rpt_list)) )
+            
+        elif(args[0].lower() == 'lb'):
+            print(self.printDefaultWeights())
+
+        elif(args[0].lower() == 'q'):
+            # quit and exit to CTP, where you finish and quit
+                print("System quitting.")
+                return "q"
+
+        else:
+            print("Could not read your command line.")
  
     '''
     These methods are used by the program automatically, and are not available to the user.
