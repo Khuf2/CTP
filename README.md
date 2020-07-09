@@ -16,6 +16,9 @@ This design can be built around any type of data, and the structure can be emula
 purpose than CTP tracking. The user interaction loop, data storage system, and the command line reader 
 are the main tools that had to be created in the making of this program.
 
+You can **view all the data in your data.json file**. This file can be sent and used in another
+user's CTP program. It contains all of your personalized information. 
+
 ## Usage:
 
 After you log in, the program operates out of a central menu loop.
@@ -57,7 +60,7 @@ Filter condition example: ___age>60, intel<=60___
 Make sure there's no blank spaces inside your conditions.
 
 **lb**
-: prints [weights] used for CTP calculation
+: prints [weights] used for CTP calculation  
 Usage: 
 - lb
 
@@ -79,5 +82,3 @@ Usage:
 Usage: 
 - q
 
-You can **view all the data in your data.json file**. This file can be sent and used in another
-user's CTP program. It contains all of your personalized information. 
