@@ -24,18 +24,18 @@ In this menu, you can select different operations with shortcuts.
 ### Shortcuts Glossary:
 
 **ls**
-: [list] name, gender, and CTP of all entries
+: [list] name, gender, and CTP of all entries  
 Usage: 
 - ls
 
 **add**
-: [add] a new entry
+: [add] a new entry  
 Usage: 
 - add
 - add ***name***
 
 **edit**
-: [edit] an existing entry
+: [edit] an existing entry  
 Usage: 
 - edit
 - edit ***name***
@@ -43,17 +43,17 @@ Usage:
 - edit ***name*** ***category*** ***new value or relative change***
 
 **del**
-: [delete] an existing entry
+: [delete] an existing entry  
 Usage: 
 - del
 - del ***name***
 
 **f**
-: [find] entries based on a search query 
+: [find] entries based on a search query  
 Usage: 
 - f ***filter***
 - f ***filter1***, ***filter2***, ***...***
-Filter condition example: ___age>60, intel<=60___
+Filter condition example: ___age>60, intel<=60___  
 Make sure there's no blank spaces inside your conditions.
 
 **lb**
@@ -62,20 +62,20 @@ Usage:
 - lb
 
 **sort**
-: [sort] data list by specified criteria.
+: [sort] data list by specified criteria.  
 Usage: 
 - sort
 - sort ***criterion*** ***order***
 
 **rpt**
-: [report] entries from a comma-seperated list of names. Using the asterisk prints all entries.
+: [report] entries from a comma-seperated list of names. Using the asterisk prints all entries.  
 Usage: 
 - rpt
 - rpt *
 - rpt ***name1***, ***name2***, ***name3***, ***...***
 
 **q**
-: [quits] and saves new changes to JSON
+: [quits] and saves new changes to JSON  
 Usage: 
 - q
 
